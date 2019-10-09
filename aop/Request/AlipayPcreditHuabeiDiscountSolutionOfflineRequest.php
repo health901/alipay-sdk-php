@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-09-09 11:16:24
  */
-class AlipayPcreditHuabeiDiscountSolutionOfflineRequest
+namespace Alipay\Request;
+
+class AlipayPcreditHuabeiDiscountSolutionOfflineRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 下架花呗分期商家贴息方案

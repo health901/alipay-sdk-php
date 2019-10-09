@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-26 20:16:10
  */
-class KoubeiSalesLeadsShopleadsCreateRequest
+namespace Alipay\Request;
+
+class KoubeiSalesLeadsShopleadsCreateRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 口碑开店Leads创建接口

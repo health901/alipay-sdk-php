@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-05-14 11:16:02
  */
-class ZhimaCreditEpSceneFulfillmentSyncRequest
+namespace Alipay\Request;
+
+class ZhimaCreditEpSceneFulfillmentSyncRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 信用服务履约同步

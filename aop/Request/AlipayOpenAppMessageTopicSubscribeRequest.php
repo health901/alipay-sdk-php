@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-17 22:00:01
  */
-class AlipayOpenAppMessageTopicSubscribeRequest
+namespace Alipay\Request;
+
+class AlipayOpenAppMessageTopicSubscribeRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 订阅消息topic

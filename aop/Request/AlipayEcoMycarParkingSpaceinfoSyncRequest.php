@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-08-29 11:18:16
  */
-class AlipayEcoMycarParkingSpaceinfoSyncRequest
+namespace Alipay\Request;
+
+class AlipayEcoMycarParkingSpaceinfoSyncRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 停车场车位信息同步

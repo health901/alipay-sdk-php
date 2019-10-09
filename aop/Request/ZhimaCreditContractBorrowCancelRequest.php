@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-31 14:11:36
  */
-class ZhimaCreditContractBorrowCancelRequest
+namespace Alipay\Request;
+
+class ZhimaCreditContractBorrowCancelRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 借还合约取消接口

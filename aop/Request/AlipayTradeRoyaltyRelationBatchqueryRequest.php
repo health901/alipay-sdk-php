@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-15 11:15:03
  */
-class AlipayTradeRoyaltyRelationBatchqueryRequest
+namespace Alipay\Request;
+
+class AlipayTradeRoyaltyRelationBatchqueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 分账关系查询

@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-31 14:11:30
  */
-class ZhimaCreditContractBorrowReturnRequest
+namespace Alipay\Request;
+
+class ZhimaCreditContractBorrowReturnRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 物品归还接口

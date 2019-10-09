@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-06-10 15:35:01
  */
-class AlipayMerchantOrderSyncRequest
+namespace Alipay\Request;
+
+class AlipayMerchantOrderSyncRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 订单数据同步接口

@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-05-14 11:16:11
  */
-class ZhimaCreditEpSceneAgreementUseRequest
+namespace Alipay\Request;
+
+class ZhimaCreditEpSceneAgreementUseRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 加入信用服务

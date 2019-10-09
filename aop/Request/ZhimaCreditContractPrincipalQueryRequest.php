@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-31 14:11:56
  */
-class ZhimaCreditContractPrincipalQueryRequest
+namespace Alipay\Request;
+
+class ZhimaCreditContractPrincipalQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 身份主体查询接口

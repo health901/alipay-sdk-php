@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-09-06 08:54:44
  */
-class AlipayMarketingCashlessitemvoucherTemplateCreateRequest
+namespace Alipay\Request;
+
+class AlipayMarketingCashlessitemvoucherTemplateCreateRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 无资金单品券创建

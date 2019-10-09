@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-09-09 16:06:09
  */
-class AlipayFundTransUniTransferRequest
+namespace Alipay\Request;
+
+class AlipayFundTransUniTransferRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 支付宝转账支付接口

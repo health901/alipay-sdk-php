@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-08-07 18:20:01
  */
-class AlipayCommerceTransportNfccardSendRequest
+namespace Alipay\Request;
+
+class AlipayCommerceTransportNfccardSendRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * NFC用户卡信息同步

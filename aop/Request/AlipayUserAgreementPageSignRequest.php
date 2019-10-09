@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-09-03 17:50:55
  */
-class AlipayUserAgreementPageSignRequest
+namespace Alipay\Request;
+
+class AlipayUserAgreementPageSignRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 支付宝个人协议页面签约接口

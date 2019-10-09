@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-05-14 11:30:01
  */
-class ZhimaCreditEpSceneRatingApplyRequest
+namespace Alipay\Request;
+
+class ZhimaCreditEpSceneRatingApplyRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 芝麻企业信用客户信用评估申请

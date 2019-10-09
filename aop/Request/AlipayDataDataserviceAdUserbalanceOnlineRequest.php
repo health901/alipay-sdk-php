@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-30 21:40:04
  */
-class AlipayDataDataserviceAdUserbalanceOnlineRequest
+namespace Alipay\Request;
+
+class AlipayDataDataserviceAdUserbalanceOnlineRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 投放账户余额上线

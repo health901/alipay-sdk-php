@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-27 01:14:03
  */
-class AlipayFundTransRefundRequest
+namespace Alipay\Request;
+
+class AlipayFundTransRefundRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 资金退款

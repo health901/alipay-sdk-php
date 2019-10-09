@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-23 11:10:01
  */
-class AlipayOpenAppMessageSubscriptionQueryRequest
+namespace Alipay\Request;
+
+class AlipayOpenAppMessageSubscriptionQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 查询消息订阅关系

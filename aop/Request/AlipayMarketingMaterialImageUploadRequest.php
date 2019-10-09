@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-15 10:09:02
  */
-class AlipayMarketingMaterialImageUploadRequest
+namespace Alipay\Request;
+
+class AlipayMarketingMaterialImageUploadRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 图片的byte字节数组。图片大小限制为2M

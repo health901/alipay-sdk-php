@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-06-12 12:04:36
  */
-class AlipayOpenMiniDataVisitQueryRequest
+namespace Alipay\Request;
+
+class AlipayOpenMiniDataVisitQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 小程序当日访问数据查询

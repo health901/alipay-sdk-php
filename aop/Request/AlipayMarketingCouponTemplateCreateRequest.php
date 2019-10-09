@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-08-12 11:30:01
  */
-class AlipayMarketingCouponTemplateCreateRequest
+namespace Alipay\Request;
+
+class AlipayMarketingCouponTemplateCreateRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 创建红包模板

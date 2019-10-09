@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-04-12 18:10:17
  */
-class AlipayOpenBizCreateRequest
+namespace Alipay\Request;
+
+class AlipayOpenBizCreateRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 2121

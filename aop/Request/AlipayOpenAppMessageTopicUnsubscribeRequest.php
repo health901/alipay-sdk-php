@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-23 11:20:01
  */
-class AlipayOpenAppMessageTopicUnsubscribeRequest
+namespace Alipay\Request;
+
+class AlipayOpenAppMessageTopicUnsubscribeRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 取消订阅关系

@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-08-19 15:10:01
  */
-class AlipayMerchantOrderDigestConsumerBatchqueryRequest
+namespace Alipay\Request;
+
+class AlipayMerchantOrderDigestConsumerBatchqueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 订单数据列表查询

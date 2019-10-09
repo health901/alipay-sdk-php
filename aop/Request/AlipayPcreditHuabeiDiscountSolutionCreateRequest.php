@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-09-09 11:16:24
  */
-class AlipayPcreditHuabeiDiscountSolutionCreateRequest
+namespace Alipay\Request;
+
+class AlipayPcreditHuabeiDiscountSolutionCreateRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 创建方案实例

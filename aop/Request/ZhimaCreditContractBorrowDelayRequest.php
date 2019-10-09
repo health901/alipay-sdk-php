@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-31 14:11:16
  */
-class ZhimaCreditContractBorrowDelayRequest
+namespace Alipay\Request;
+
+class ZhimaCreditContractBorrowDelayRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 借还合约延期接口

@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-30 21:39:52
  */
-class AlipayDataDataserviceAdUserCreateRequest
+namespace Alipay\Request;
+
+class AlipayDataDataserviceAdUserCreateRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 投放账户开户

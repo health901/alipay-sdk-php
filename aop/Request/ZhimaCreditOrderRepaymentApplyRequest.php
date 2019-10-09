@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-05-30 15:40:01
  */
-class ZhimaCreditOrderRepaymentApplyRequest
+namespace Alipay\Request;
+
+class ZhimaCreditOrderRepaymentApplyRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 信用订单追赔操作申请接口

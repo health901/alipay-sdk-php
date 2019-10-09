@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-04-12 10:55:00
  */
-class AlipayOpenAppNotifyModifyRequest
+namespace Alipay\Request;
+
+class AlipayOpenAppNotifyModifyRequest extends AbstractAlipayRequest
 {
 
 }

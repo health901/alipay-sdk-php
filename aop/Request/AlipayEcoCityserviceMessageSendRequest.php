@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-06-17 19:45:33
  */
-class AlipayEcoCityserviceMessageSendRequest
+namespace Alipay\Request;
+
+class AlipayEcoCityserviceMessageSendRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 城服用户消息触达

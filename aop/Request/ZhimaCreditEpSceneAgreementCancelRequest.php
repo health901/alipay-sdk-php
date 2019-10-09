@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-05-14 11:23:04
  */
-class ZhimaCreditEpSceneAgreementCancelRequest
+namespace Alipay\Request;
+
+class ZhimaCreditEpSceneAgreementCancelRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 取消信用服务

@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-06-05 22:19:55
  */
-class ZhimaOpenAppDesSendRequest
+namespace Alipay\Request;
+
+class ZhimaOpenAppDesSendRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * tomayi消息测试

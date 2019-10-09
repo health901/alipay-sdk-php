@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-04-12 11:57:10
  */
-class AlipayOpenAppCallQueryRequest
+namespace Alipay\Request;
+
+class AlipayOpenAppCallQueryRequest extends AbstractAlipayRequest
 {
 
 }

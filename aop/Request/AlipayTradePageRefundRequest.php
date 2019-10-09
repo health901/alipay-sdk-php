@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-06-19 11:35:01
  */
-class AlipayTradePageRefundRequest
+namespace Alipay\Request;
+
+class AlipayTradePageRefundRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 统一收单退款页面接口

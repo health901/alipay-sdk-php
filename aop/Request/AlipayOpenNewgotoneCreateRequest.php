@@ -5,6 +5,8 @@
  * @author auto create
  * @since 1.0, 2019-04-12 13:25:01
  */
-class AlipayOpenNewgotoneCreateRequest
+namespace Alipay\Request;
+
+class AlipayOpenNewgotoneCreateRequest extends AbstractAlipayRequest
 {
 }

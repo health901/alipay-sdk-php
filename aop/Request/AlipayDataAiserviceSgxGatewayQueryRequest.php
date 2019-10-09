@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-05-22 16:25:01
  */
-class AlipayDataAiserviceSgxGatewayQueryRequest
+namespace Alipay\Request;
+
+class AlipayDataAiserviceSgxGatewayQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 查询sgx集群的IAS report

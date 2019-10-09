@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-08-20 18:15:01
  */
-class AlipayOpenAppAlipaycertDownloadRequest
+namespace Alipay\Request;
+
+class AlipayOpenAppAlipaycertDownloadRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 应用支付宝公钥证书下载

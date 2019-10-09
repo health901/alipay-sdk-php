@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-05-15 16:45:01
  */
-class AlipayDataDataserviceAdOnlineRequest
+namespace Alipay\Request;
+
+class AlipayDataDataserviceAdOnlineRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 广告启用API

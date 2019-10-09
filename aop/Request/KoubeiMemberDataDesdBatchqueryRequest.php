@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-04-12 13:55:01
  */
-class KoubeiMemberDataDesdBatchqueryRequest
+namespace Alipay\Request;
+
+class KoubeiMemberDataDesdBatchqueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * bizcontet同步

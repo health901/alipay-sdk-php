@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-06-25 12:11:45
  */
-class AlipayTradeAdvanceConsultRequest
+namespace Alipay\Request;
+
+class AlipayTradeAdvanceConsultRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 垫资查询

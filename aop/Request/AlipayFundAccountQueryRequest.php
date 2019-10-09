@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-08-22 19:10:54
  */
-class AlipayFundAccountQueryRequest
+namespace Alipay\Request;
+
+class AlipayFundAccountQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 支付宝资金账户资产查询接口

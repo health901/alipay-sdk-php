@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-30 21:39:32
  */
-class AlipayDataDataserviceAdPrincipalCreateormodifyRequest
+namespace Alipay\Request;
+
+class AlipayDataDataserviceAdPrincipalCreateormodifyRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 新增/修改商家

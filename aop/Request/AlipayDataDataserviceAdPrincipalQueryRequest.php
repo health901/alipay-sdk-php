@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-30 22:00:01
  */
-class AlipayDataDataserviceAdPrincipalQueryRequest
+namespace Alipay\Request;
+
+class AlipayDataDataserviceAdPrincipalQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 查询商家信息

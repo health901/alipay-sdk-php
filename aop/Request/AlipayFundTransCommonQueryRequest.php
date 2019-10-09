@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-09-09 15:48:52
  */
-class AlipayFundTransCommonQueryRequest
+namespace Alipay\Request;
+
+class AlipayFundTransCommonQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 转账业务单据查询接口

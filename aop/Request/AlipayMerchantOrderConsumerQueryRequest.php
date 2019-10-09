@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-08-19 15:02:12
  */
-class AlipayMerchantOrderConsumerQueryRequest
+namespace Alipay\Request;
+
+class AlipayMerchantOrderConsumerQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 订单详情查询

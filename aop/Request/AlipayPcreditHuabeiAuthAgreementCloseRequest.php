@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-08-16 11:50:01
  */
-class AlipayPcreditHuabeiAuthAgreementCloseRequest
+namespace Alipay\Request;
+
+class AlipayPcreditHuabeiAuthAgreementCloseRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 花呗先享会员协议关闭接口

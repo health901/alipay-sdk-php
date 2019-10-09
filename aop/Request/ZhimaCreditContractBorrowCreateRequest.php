@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-31 14:11:43
  */
-class ZhimaCreditContractBorrowCreateRequest
+namespace Alipay\Request;
+
+class ZhimaCreditContractBorrowCreateRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 创建借还记录

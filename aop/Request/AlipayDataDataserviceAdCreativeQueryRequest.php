@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-30 21:42:16
  */
-class AlipayDataDataserviceAdCreativeQueryRequest
+namespace Alipay\Request;
+
+class AlipayDataDataserviceAdCreativeQueryRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 查询创意详情

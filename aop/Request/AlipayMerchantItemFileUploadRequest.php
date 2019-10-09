@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-09-09 14:51:23
  */
-class AlipayMerchantItemFileUploadRequest
+namespace Alipay\Request;
+
+class AlipayMerchantItemFileUploadRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 文件二进制字节流，最大为4M

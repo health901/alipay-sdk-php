@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-07-05 19:45:01
  */
-class AlipayTradeRoyaltyRelationUnbindRequest
+namespace Alipay\Request;
+
+class AlipayTradeRoyaltyRelationUnbindRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 分账关系解绑

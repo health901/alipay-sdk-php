@@ -5,7 +5,9 @@
  * @author auto create
  * @since 1.0, 2019-09-03 17:50:49
  */
-class AlipayUserAgreementUnsignRequest
+namespace Alipay\Request;
+
+class AlipayUserAgreementUnsignRequest extends AbstractAlipayRequest
 {
 	/** 
 	 * 支付宝个人代扣协议解约接口
