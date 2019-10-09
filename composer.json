@@ -1,5 +1,5 @@
 {
-    "name": "wi1dcard/alipay-sdk",
+    "name": "vrobin/alipay-sdk",
     "description": "支付宝（蚂蚁金服）开放平台第三方 PHP SDK，基于官方 3.3.2 版本。",
     "type": "library",
     "require": {
@@ -12,8 +12,8 @@
     },
     "authors": [
         {
-            "name": "wi1dcard",
-            "email": "wi1dcard.cn@gmail.com"
+            "name": "vrobin",
+            "email": "health901@163.com"
         }
     ],
     "autoload": {
