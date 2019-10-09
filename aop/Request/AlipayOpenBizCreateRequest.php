@@ -73,11 +73,5 @@ class AlipayOpenBizCreateRequest extends AbstractAlipayRequest
 	{
 		return $this->stringbuff;
 	}
-
-	public function getApiMethodName()
-	{
-		return "alipay.open.biz.create";
-	}
-
-
+	
 }
