@@ -1,9 +1,12 @@
 <img src="https://i.loli.net/2018/07/24/5b56e980b155e.png" width="40px" height="40px"> Alipay SDK for PHP
 ==========
 
+> 原项目部更新了,fork过来
+>
 > 更新官方SDK,支持公钥证书加密
-> 
-> [原项目](https://github.com/wi1dcard/alipay-sdk-php)
+
+[原项目](https://github.com/wi1dcard/alipay-sdk-php)
+
 🐜 支付宝开放平台（又称：蚂蚁金服开放平台）**第三方** PHP SDK，基于[官方][OfficialSDK] 3.4.2 版本；已在公司产品应用，运行在数百台客户服务器内。
 
 🎉 [百度小程序第三方 PHP SDK](https://github.com/wi1dcard/baidu-mini-program-sdk)。
