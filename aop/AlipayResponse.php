@@ -89,7 +89,7 @@ class AlipayResponse
         }
         $result = $this->getFirstElement();
         if ($assoc == false) {
-            $result = (object) ($result);
+            $result = (object)($result);
         }
 
         return $result;
@@ -106,11 +106,21 @@ class AlipayResponse
     }
 
     /**
+     * 获取响应内的数据
+     * 
+     * @return mixed
+     */
+    public function getParsedData()
+    {
+        return $this->getFirstElement();
+    }
+
+    /**
      * 获取响应数据内的首元素
      *
      * @return mixed
      */
-    protected function getFirstElement()
+    public function getFirstElement()
     {
         $data = array_reverse($this->parsed);
 
@@ -148,9 +158,18 @@ class AlipayResponse
             $result = $this->getFirstElement();
         }
         if ($assoc == false) {
-            $result = (object) ($result);
+            $result = (object)($result);
         }
 
         return $result;
+    }
+
+    public function getSubCode()
+    {
+        if ($this->isSuccess()) {
+            return null;
+        }
+        $result = $this->getFirstElement();
+        return $result['sub_code'] ?? null;
     }
 }
