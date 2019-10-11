@@ -43,6 +43,7 @@ class AlipayCert
         $x509data = file_get_contents($this->appCert);
         if ($x509data === false) {
             throw new AlipayCertException('Alipay CertSN Error -- [getCertSN]');
+        }
         openssl_x509_read($x509data);
         $certdata = openssl_x509_parse($x509data);
         if (empty($certdata)) {
