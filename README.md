@@ -1,7 +1,7 @@
 <img src="https://i.loli.net/2018/07/24/5b56e980b155e.png" width="40px" height="40px"> Alipay SDK for PHP
 ==========
 
-> 原项目部更新了,fork过来
+> 原项目不维护了,fork过来
 >
 > 更新官方SDK,支持公钥证书加密
 
@@ -90,6 +90,14 @@
 
     `AopClient` 通常情况会贯穿整条业务，除非你须要在同一套代码内处理多个商户号/小程序，否则只需在初始化阶段创建一次即可。
 
+    - 3.1 使用公用证书模式
+        
+    ```php
+   $aop->setCertPair($app_cert_path, $root_cert_path);
+   ``` 
+   
+    `$app_cert_path`和`$root_cert_path`分别为应用公钥证书和支付宝根证书路径
+    
 4. 根据业务需要，创建 `AlipayRequest` 实例。
 
     ```php
@@ -107,7 +115,15 @@
     $request = new \Alipay\Request\AlipaySystemOauthTokenRequest();
     $request->setCode('authcode');
     ```
-
+    
+    因为SDK更新,若存在未被涵盖的(新)接口,可以先使用通用请求
+    
+    ```php
+   $request = \Alipay\Request\AlipayCommonRequest::api('alipay.new.api');
+   $request->setBizContent(['foo'=>'bar']);
+   $request->setParam('foo','bar');
+    ```
+    
 5. 发送请求，获得响应数据。
 
     ```php
