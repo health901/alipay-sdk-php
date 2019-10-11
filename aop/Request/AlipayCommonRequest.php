@@ -14,17 +14,22 @@ class AlipayCommonRequest extends AbstractAlipayRequest
     /**
      * 通用接口
      **/
-    private $apiName;
+    protected static $apiName;
 
     public static function api($api, $config = [])
     {
-        $config['apiName'] = $api;
-        return new self($config);
+        $instance =  new self($config);
+        $instance->setApi($api);
+        return $instance;
     }
 
-    public function getApiMethodName()
+    public function setApi($api){
+        self::$apiName = $api;
+    }
+
+    public static function getApiMethodName()
     {
-        return $this->apiName;
+        return self::$apiName;
     }
 
     public function setParam($key, $value)
