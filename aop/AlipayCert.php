@@ -120,7 +120,7 @@ class AlipayCert
     public function getPublickey()
     {
         $certPath = $this->alipayCertPublicKey;
-        return AlipayPublicKey::create($certPath)->asResource();
+        return AlipayPublicKey::create($certPath)->asString();
     }
 
 }

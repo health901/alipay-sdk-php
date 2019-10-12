@@ -260,15 +260,11 @@ class AopClient
         if ($params === null) {
             $params = $_POST;
         }
-        if ($this->certPair) {
-            $publicKey = $this->certPair->getPublickey();
-        } else {
-            $publicKey = $this->keyPair->getPublicKey()->asResource();
-        }
+
         try {
             $this->signer->verifyByParams(
                 $params,
-                $publicKey
+                $this->getPublicKey()
             );
         } catch (AlipayInvalidSignException $ex) {
             return false;
@@ -277,6 +273,21 @@ class AopClient
         }
 
         return true;
+    }
+
+    /**
+     * 获取支付宝公钥,兼容公钥证书模式
+     * @return mixed|resource
+     * @throws Exception\AlipayCertException
+     */
+    public function getPublicKey()
+    {
+        if ($this->certPair) {
+            $publicKey = $this->certPair->getPublickey();
+        } else {
+            $publicKey = $this->keyPair->getPublicKey()->asResource();
+        }
+        return $publicKey;
     }
 
     /**
@@ -330,6 +341,14 @@ class AopClient
     public function getKeyPair()
     {
         return $this->keyPair;
+    }
+
+    /**
+     * @return AlipayCert|null
+     */
+    public function getCertPair()
+    {
+        return $this->certPair;
     }
 
     /**

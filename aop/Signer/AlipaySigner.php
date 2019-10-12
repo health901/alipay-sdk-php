@@ -131,7 +131,7 @@ abstract class AlipaySigner
      *
      * @return string
      */
-    protected function convertSignData($params)
+    public function convertSignData($params)
     {
         ksort($params);
         $stringToBeSigned = '';
