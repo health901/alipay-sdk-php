@@ -4,6 +4,7 @@ namespace Alipay;
 
 use Alipay\Exception\AlipayCertException;
 use Alipay\Exception\AlipayOpenSslException;
+use Alipay\Key\AlipayPublicKey;
 
 class AlipayCert
 {
@@ -19,18 +20,21 @@ class AlipayCert
      */
     protected $alipayRootCert;
 
-    public function __construct($appCertPath, $alipayRootCertPath)
+    protected $alipayCertPublicKey;
+
+    public function __construct($appCertPath, $alipayRootCertPath, $alipayCertPublicKey = null)
     {
         if (!file_exists($alipayRootCertPath) || !file_exists($appCertPath)) {
             throw new AlipayCertException("cert not exist");
         }
         $this->appCert = $appCertPath;
         $this->alipayRootCert = $alipayRootCertPath;
+        $this->alipayCertPublicKey = $alipayCertPublicKey;
     }
 
-    public static function pair($appCertPath, $alipayRootCertPath)
+    public static function pair($appCertPath, $alipayRootCertPath, $alipayCertPublicKey = null)
     {
-        return new self($appCertPath, $alipayRootCertPath);
+        return new self($appCertPath, $alipayRootCertPath, $alipayCertPublicKey);
     }
 
     /**
@@ -38,13 +42,12 @@ class AlipayCert
      * @return string
      * @throws AlipayOpenSslException
      */
-    public function getAppCertSN()
+    public function getCertSN()
     {
         $x509data = file_get_contents($this->appCert);
         if ($x509data === false) {
             throw new AlipayCertException('Alipay CertSN Error -- [getCertSN]');
         }
-        openssl_x509_read($x509data);
         $certdata = openssl_x509_parse($x509data);
         if (empty($certdata)) {
             throw new AlipayCertException('Alipay openssl_x509_parse Error -- [getCertSN]');
@@ -75,7 +78,6 @@ class AlipayCert
         foreach ($certStrList as $one) {
             if (!empty(trim($one))) {
                 $_x509data = $one . $kCertificateEnd;
-                openssl_x509_read($_x509data);
                 $_certdata = openssl_x509_parse($_x509data);
                 if (in_array($_certdata['signatureTypeSN'], ['RSA-SHA256', 'RSA-SHA1'])) {
                     $issuer_arr = [];
@@ -108,6 +110,17 @@ class AlipayCert
             $dec = bcadd($dec, bcmul(strval(hexdec($hex[$i - 1])), bcpow('16', strval($len - $i))));
         }
         return $dec;
+    }
+
+    /**
+     * 从支付宝公钥证书中获取公钥
+     * @return mixed
+     * @throws AlipayCertException
+     */
+    public function getPublickey()
+    {
+        $certPath = $this->alipayCertPublicKey;
+        return AlipayPublicKey::create($certPath)->asResource();
     }
 
 }

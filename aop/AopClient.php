@@ -59,7 +59,7 @@ class AopClient
 
     /**
      *
-     * @var bool
+     * @var null|AlipayCert
      */
     protected $certPair;
 
@@ -88,9 +88,9 @@ class AopClient
     }
 
 
-    public function setCertPair($appCertPath, $alipayRootCertPath)
+    public function setCertPair($appCertPath, $alipayRootCertPath, $alipayCertPublicKey = null)
     {
-        $this->certPair = AlipayCert::pair($appCertPath, $alipayRootCertPath);
+        $this->certPair = AlipayCert::pair($appCertPath, $alipayRootCertPath, $alipayCertPublicKey);
     }
 
     /**
@@ -125,7 +125,7 @@ class AopClient
         $sysParams['app_auth_token'] = $request->getAppAuthToken();
 
         if ($this->certPair) {
-            $sysParams['app_cert_sn'] = $this->certPair->getAppCertSN();
+            $sysParams['app_cert_sn'] = $this->certPair->getCertSN();
             $sysParams['alipay_root_cert_sn'] = $this->certPair->getRootCertSN();
         }
 
@@ -165,7 +165,7 @@ class AopClient
     {
         $raw = $this->requester->execute($params);
         $response = $this->parser->parse($raw);
-        if(!$this->certPair){
+        if (!$this->certPair) {
             $this->signer->verify(
                 $response->getSign(),
                 $response->stripData(),
@@ -260,11 +260,15 @@ class AopClient
         if ($params === null) {
             $params = $_POST;
         }
-
+        if ($this->certPair) {
+            $publicKey = $this->certPair->getPublickey();
+        } else {
+            $publicKey = $this->keyPair->getPublicKey()->asResource();
+        }
         try {
             $this->signer->verifyByParams(
                 $params,
-                $this->keyPair->getPublicKey()->asResource()
+                $publicKey
             );
         } catch (AlipayInvalidSignException $ex) {
             return false;

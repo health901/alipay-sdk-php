@@ -107,12 +107,17 @@ class AlipayResponse
 
     /**
      * 获取响应内的数据
-     * 
+     *
      * @return mixed
      */
     public function getParsedData()
     {
         return $this->getFirstElement();
+    }
+
+    public function getParsed()
+    {
+        return $this->parsed;
     }
 
     /**
