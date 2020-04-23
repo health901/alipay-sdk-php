@@ -3,19 +3,21 @@
 namespace Alipay;
 
 use Alipay\Exception\AlipayBase64Exception;
+use Alipay\Exception\AlipayInvalidRequestException;
 use Alipay\Exception\AlipayInvalidSignException;
 use Alipay\Exception\AlipayOpenSslException;
 use Alipay\Key\AlipayKeyPair;
 use Alipay\Request\AbstractAlipayRequest;
 use Alipay\Signer\AlipayRSA2Signer;
 use Alipay\Signer\AlipaySigner;
+use ReflectionException;
 
 class AopClient
 {
     /**
      * SDK 版本
      */
-    const SDK_VERSION = 'alipay-sdk-php-20180705';
+    const SDK_VERSION = 'alipay-sdk-php-easyalipay-20191227';
 
     /**
      * API 版本
@@ -57,11 +59,17 @@ class AopClient
      */
     protected $keyPair;
 
+
     /**
+     * 加密方式
      *
-     * @var null|AlipayCert
+     * @var string
      */
-    protected $certPair;
+    public $encryptType = "AES";
+    /**
+     * @var 加密密钥
+     */
+    public $encryptKey;
 
     /**
      * 创建客户端
@@ -87,20 +95,17 @@ class AopClient
         $this->parser = $parser === null ? new AlipayResponseFactory() : $parser;
     }
 
-
-    public function setCertPair($appCertPath, $alipayRootCertPath, $alipayCertPublicKey = null)
-    {
-        $this->certPair = AlipayCert::pair($appCertPath, $alipayRootCertPath, $alipayCertPublicKey);
-    }
-
     /**
      * 拼接请求参数并签名
      *
      * @param AbstractAlipayRequest $request
      *
+     * @param bool $merge
      * @return array
+     * @throws AlipayInvalidRequestException
+     * @throws ReflectionException
      */
-    public function build(AbstractAlipayRequest $request)
+    public function build(AbstractAlipayRequest $request, $merge = true)
     {
         // 组装系统参数
         $sysParams = [];
@@ -124,13 +129,35 @@ class AopClient
         $sysParams['auth_token'] = $request->getAuthToken();
         $sysParams['app_auth_token'] = $request->getAppAuthToken();
 
-        if ($this->certPair) {
-            $sysParams['app_cert_sn'] = $this->certPair->getCertSN();
-            $sysParams['alipay_root_cert_sn'] = $this->certPair->getRootCertSN();
-        }
-
         // 获取业务参数
         $apiParams = $request->getApiParams();
+
+
+        /**
+         * AES加密
+         * @see https://opendocs.alipay.com/open/common/104567#SDK%20%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%94%AF%E6%8C%81
+         */
+
+        if ($request->getNeedEncrypt()) {
+            if ($this->checkEmpty($apiParams['biz_content'])) {
+
+                throw new AlipayInvalidRequestException(" api request Fail! The reason : encrypt request is not supperted!");
+            }
+
+            if ($this->checkEmpty($this->encryptKey) || $this->checkEmpty($this->encryptType)) {
+
+                throw new AlipayInvalidRequestException(" encryptType and encryptKey must not null! ");
+            }
+
+            if ("AES" != $this->encryptType) {
+
+                throw new AlipayInvalidRequestException("加密类型只支持AES");
+            }
+            // 执行加密
+            $enCryptContent = AopEncrypt::encrypt($apiParams['biz_content'], $this->encryptKey);
+            $apiParams['biz_content'] = $enCryptContent;
+            $sysParams["encrypt_type"] = $this->encryptType;
+        }
 
         // 合并参数
         $totalParams = array_merge($apiParams, $sysParams);
@@ -146,12 +173,12 @@ class AopClient
         }
 
         // 签名
-        $totalParams['sign'] = $this->signer->generateByParams(
+        $sysParams['sign'] = $this->signer->generateByParams(
             $totalParams,
             $this->keyPair->getPrivateKey()->asResource()
         );
 
-        return $totalParams;
+        return $merge ? array_merge($sysParams, $apiParams) : ['sysParams' => $sysParams, 'apiParams' => $apiParams];
     }
 
     /**
@@ -159,19 +186,29 @@ class AopClient
      *
      * @param array $params
      *
+     * @param bool $decrypt
      * @return AlipayResponse
+     * @throws AlipayBase64Exception
+     * @throws AlipayInvalidSignException
+     * @throws AlipayOpenSslException
+     * @throws Exception\AlipayInvalidResponseException
      */
     public function request($params)
     {
         $raw = $this->requester->execute($params);
+
         $response = $this->parser->parse($raw);
-        if (!$this->certPair) {
-            $this->signer->verify(
-                $response->getSign(),
-                $response->stripData(),
-                $this->keyPair->getPublicKey()->asResource()
-            );
+
+        $this->signer->verify(
+            $response->getSign(),
+            $response->stripData(),
+            $this->keyPair->getPublicKey()->asResource()
+        );
+
+        if (is_string($response->getFirstElement())) {
+            $response->decrypt($this->encryptKey);
         }
+
         return $response;
     }
 
@@ -182,12 +219,18 @@ class AopClient
      *
      * @return AlipayResponse
      *
+     * @throws AlipayBase64Exception
+     * @throws AlipayInvalidSignException
+     * @throws AlipayOpenSslException
+     * @throws Exception\AlipayInvalidResponseException
      * @see self::build()
      * @see self::request()
      */
     public function execute(AbstractAlipayRequest $request)
     {
-        $params = $this->build($request);
+        $params = $this->build($request, false);
+
+        $this->parser->setApiName($request::getApiMethodName());
 
         $response = $this->request($params);
 
@@ -264,7 +307,7 @@ class AopClient
         try {
             $this->signer->verifyByParams(
                 $params,
-                $this->getPublicKey()
+                $this->keyPair->getPublicKey()->asResource()
             );
         } catch (AlipayInvalidSignException $ex) {
             return false;
@@ -273,21 +316,6 @@ class AopClient
         }
 
         return true;
-    }
-
-    /**
-     * 获取支付宝公钥,兼容公钥证书模式
-     * @return mixed|resource
-     * @throws Exception\AlipayCertException
-     */
-    public function getPublicKey()
-    {
-        if ($this->certPair) {
-            $publicKey = $this->certPair->getPublickey();
-        } else {
-            $publicKey = $this->keyPair->getPublicKey()->asResource();
-        }
-        return $publicKey;
     }
 
     /**
@@ -344,14 +372,6 @@ class AopClient
     }
 
     /**
-     * @return AlipayCert|null
-     */
-    public function getCertPair()
-    {
-        return $this->certPair;
-    }
-
-    /**
      * 获取与本客户端关联的响应解析器
      *
      * @return AlipayResponseFactory
@@ -379,5 +399,22 @@ class AopClient
     public function getSigner()
     {
         return $this->signer;
+    }
+
+    /**
+     * 校验$value是否非空
+     *  if not set ,return true;
+     *    if is null , return true;
+     * @param $value
+     * @return bool
+     */
+    protected function checkEmpty($value)
+    {
+        if (!isset($value))
+            return true;
+        if ($value === null)
+            return true;
+        if (trim($value) === "")
+            return true;
     }
 }

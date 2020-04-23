@@ -31,10 +31,15 @@ class AlipayResponse
      */
     protected $parsed;
 
-    public function __construct($raw, $data)
+    protected $apiName;
+
+    private $RESPONSE_SUFFIX = "_response";
+
+    public function __construct($raw, $data, $apiName)
     {
         $this->raw = $raw;
         $this->parsed = $data;
+        $this->apiName = $apiName;
     }
 
     /**
@@ -42,6 +47,7 @@ class AlipayResponse
      *
      * @return string
      *
+     * @throws AlipayInvalidResponseException
      * @see    AlipaySigner::verify()
      */
     public function stripData()
@@ -89,7 +95,7 @@ class AlipayResponse
         }
         $result = $this->getFirstElement();
         if ($assoc == false) {
-            $result = (object)($result);
+            $result = (object) ($result);
         }
 
         return $result;
@@ -105,19 +111,12 @@ class AlipayResponse
         return $this->raw;
     }
 
-    /**
-     * 获取响应内的数据
-     *
-     * @return mixed
-     */
-    public function getParsedData()
-    {
-        return $this->getFirstElement();
-    }
 
-    public function getParsed()
+    public function decrypt($key)
     {
-        return $this->parsed;
+        $rootNodeName = str_replace(".", "_", $this->apiName) . $this->RESPONSE_SUFFIX;
+        $data = AopEncrypt::decrypt($this->parsed[$rootNodeName], $key);
+        $this->parsed[$rootNodeName] = json_decode($data, true);
     }
 
     /**
@@ -127,9 +126,9 @@ class AlipayResponse
      */
     public function getFirstElement()
     {
-        $data = array_reverse($this->parsed);
+        $rootNodeName = str_replace(".", "_", $this->apiName) . $this->RESPONSE_SUFFIX;
 
-        return array_pop($data);
+        return $this->parsed[$rootNodeName];
     }
 
     /**
@@ -163,18 +162,9 @@ class AlipayResponse
             $result = $this->getFirstElement();
         }
         if ($assoc == false) {
-            $result = (object)($result);
+            $result = (object) ($result);
         }
 
         return $result;
-    }
-
-    public function getSubCode()
-    {
-        if ($this->isSuccess()) {
-            return null;
-        }
-        $result = $this->getFirstElement();
-        return $result['sub_code'] ?? null;
     }
 }

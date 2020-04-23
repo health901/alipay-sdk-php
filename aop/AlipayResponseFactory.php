@@ -8,6 +8,7 @@ class AlipayResponseFactory
 {
     protected $format;
 
+    protected $apiName;
     /**
      * 创建响应解析器
      *
@@ -23,12 +24,18 @@ class AlipayResponseFactory
         return $this->format;
     }
 
+    public function setApiName($name)
+    {
+        $this->apiName = $name;
+    }
+
     /**
      * 将 HTTP API 响应体字符串解析为结构化的对象
      *
      * @param string $raw 原始响应字符串
      *
      * @return AlipayResponse
+     * @throws AlipayInvalidResponseException
      */
     public function parse($raw)
     {
@@ -39,6 +46,6 @@ class AlipayResponseFactory
             throw new AlipayInvalidResponseException($raw, $error);
         }
 
-        return new AlipayResponse($raw, $data);
+        return new AlipayResponse($raw, $data, $this->apiName);
     }
 }

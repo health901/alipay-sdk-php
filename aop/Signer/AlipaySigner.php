@@ -62,16 +62,15 @@ abstract class AlipaySigner
     /**
      * 验签（验证 Sign 值）
      *
-     * @param string   $sign
-     * @param string   $data
+     * @param string $sign
+     * @param string $data
      * @param resource $publicKey
+     *
+     * @return void
      *
      * @throws AlipayBase64Exception
      * @throws AlipayInvalidSignException
      * @throws AlipayOpenSslException
-     *
-     * @return void
-     *
      * @see https://docs.open.alipay.com/200/106120
      */
     public function verify($sign, $data, $publicKey)
@@ -131,7 +130,7 @@ abstract class AlipaySigner
      *
      * @return string
      */
-    public function convertSignData($params)
+    protected function convertSignData($params)
     {
         ksort($params);
         $stringToBeSigned = '';

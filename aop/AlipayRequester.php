@@ -32,7 +32,7 @@ class AlipayRequester
 
     public function getUrl()
     {
-        return $this->getGateway() . '?charset=' . urlencode($this->getCharset());
+        return $this->getGateway() . '?charset=' . urlencode($this->getCharset();
     }
 
     /**
@@ -44,6 +44,6 @@ class AlipayRequester
      */
     public function execute($params)
     {
-        return call_user_func($this->callback, $this->getUrl(), $params);
+        return call_user_func($this->callback, $this->getGateway(), $this->getCharset(), $params);
     }
 }

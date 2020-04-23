@@ -36,6 +36,8 @@ abstract class AbstractAlipayRequest
 
     protected $appAuthToken;
 
+    protected $needNeedEncrypt = false;
+
     public function __construct($config = [])
     {
         foreach ($config as $key => $value) {
@@ -53,6 +55,7 @@ abstract class AbstractAlipayRequest
      * @param bool $shorten 是否不带命名空间
      *
      * @return string
+     * @throws \ReflectionException
      */
     public static function className($shorten = false)
     {
@@ -68,6 +71,7 @@ abstract class AbstractAlipayRequest
      * 根据类名获取 API 方法名
      *
      * @return string
+     * @throws \ReflectionException
      */
     public static function getApiMethodName()
     {
@@ -78,6 +82,17 @@ abstract class AbstractAlipayRequest
         $api = strtolower($api);
 
         return $api;
+    }
+
+    /**
+     * 是否对请求和响应加密解密
+     *
+     * @return boolean
+     */
+    public function getNeedEncrypt()
+    {
+
+        return $this->needNeedEncrypt;
     }
 
     /**
